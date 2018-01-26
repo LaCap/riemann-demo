@@ -43,14 +43,17 @@ def main():
     event_value = get_event_value()
     event_hostname = get_hostname()
 
-    print('host: {}, service: {}, value: {}'.format(
+    print('host: {}, service: {}, metric: {}'.format(
         event_hostname,
         event_service,
         str(event_value)))
 
-#    client.send({'host': event_hostname,
-#                 'service': event_service,
-#                 'value': str(event_value)})
+    client.send({'host': event_hostname,
+                 'service': event_service,
+                 'description': 'blah',
+                 'state': 'ok',
+                 'ttl': 25,
+                 'metric': str(event_value)})
 
 
 if __name__ == '__main__':
