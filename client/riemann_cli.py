@@ -43,6 +43,13 @@ def main():
     event_value = get_event_value()
     event_hostname = get_hostname()
 
+    if event_value > 85:
+        event_state = 'critical'
+    elif event_value >= 75:
+        event_state = 'warning'
+    else:
+        event_state = 'ok'
+
     print('host: {}, service: {}, metric: {}'.format(
         event_hostname,
         event_service,
@@ -51,9 +58,9 @@ def main():
     client.send({'host': event_hostname,
                  'service': event_service,
                  'description': 'blah',
-                 'state': 'ok',
+                 'state': event_state,
                  'ttl': 25,
-                 'metric': str(event_value)})
+                 'metric': event_value})
 
 
 if __name__ == '__main__':
